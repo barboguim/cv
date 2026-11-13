@@ -1,0 +1,118 @@
+/* CV Guilherme Barbosa: reprodução do layout Canva (Carta, 612×792 pt).
+   Medidas extraídas do PDF original (ver ../docs/04_cv_ajustes.md, §1). */
+
+:root {
+  --teal: #3f868c;      /* coluna esquerda */
+  --peach: #f49d6e;     /* faixa do nome */
+  --dot: #f5d5b9;       /* bolinhas de idioma */
+  --side-text: #d9d9d9; /* texto e títulos da coluna esquerda */
+  --heading: #344c4c;   /* títulos da coluna direita */
+  --name: #222222;
+}
+
+@page { size: 612pt 792pt; margin: 0; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { background: #e9eded; }
+body { font-family: 'Roboto', Arial, sans-serif; color: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+.toolbar { text-align: center; padding: 14px 0 10px; font-size: 14px; }
+.toolbar a { color: var(--teal); font-weight: 700; text-decoration: none; border: 1.5px solid var(--teal); border-radius: 4px; padding: 5px 14px; }
+.toolbar a:hover { background: var(--teal); color: #fff; }
+
+/* ---------- página ---------- */
+.page {
+  position: relative;
+  width: 612pt; height: 792pt;
+  margin: 0 auto 30px;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 2px 14px rgba(0,0,0,.18);
+}
+
+/* faixa do nome */
+.top {
+  position: absolute; left: 187pt; top: 0; right: 0; height: 71.5pt;
+  background: var(--peach);
+}
+.top h1 {
+  font-family: 'Lato', sans-serif; font-weight: 900;
+  font-size: 26.6pt; line-height: 27pt; letter-spacing: 2.6pt; color: var(--name);
+}
+.top .first { position: absolute; left: 33pt; top: 6pt; }
+.top .last  { position: absolute; left: 121pt; top: 33pt; }
+
+/* ---------- coluna esquerda ---------- */
+.side {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 187pt;
+  background: var(--teal); color: var(--side-text);
+  padding: 14pt 8pt 0 7pt;
+}
+.side h2 {
+  font-family: 'League Spartan', sans-serif; font-weight: 700;
+  font-size: 15.4pt; letter-spacing: .2pt; line-height: 1; color: var(--side-text);
+  margin: 0 0 9pt 7pt;
+}
+.side section { margin-bottom: 22pt; }
+.side a { color: inherit; text-decoration: none; }
+.info { font-size: 9.4pt; line-height: 14pt; letter-spacing: 0; }
+.perfil {
+  font-size: 10pt; line-height: 15.8pt; letter-spacing: .35pt;
+  text-align: left; /* justificado gerava vãos largos (sem hifenização pt no Edge) */
+}
+.list { list-style: none; font-size: 11pt; line-height: 16.5pt; letter-spacing: .6pt; }
+
+.langs { border-collapse: collapse; font-size: 10pt; letter-spacing: .4pt; }
+.langs th { font-weight: 400; text-align: left; width: 49pt; height: 18.2pt; padding: 0; }
+.langs td { padding: 0; white-space: nowrap; }
+.langs .scale { display: inline-block; width: 14pt; font-weight: 700; font-size: 12pt; text-align: center; vertical-align: middle; }
+.langs i {
+  display: inline-block; width: 14.3pt; height: 14.3pt; border-radius: 50%;
+  background: #fff; margin-right: 2.35pt; vertical-align: middle;
+}
+.langs i.on { background: var(--dot); }
+.langs td > .scale:last-child { width: 10pt; margin-left: -1pt; }
+
+/* ---------- coluna direita ---------- */
+.main { position: absolute; left: 195pt; top: 74pt; right: 4pt; }
+.main h2 {
+  font-family: 'League Spartan', sans-serif; font-weight: 700;
+  font-size: 13pt; line-height: 1; color: var(--heading); letter-spacing: .1pt;
+  display: inline-block; padding-bottom: 2.5pt; margin-bottom: 3pt;
+  border-bottom: .8pt dotted #000; min-width: 101pt;
+}
+.main section + section { margin-top: 2pt; }
+.main section + section h2 { margin-left: 3pt; }
+.main article { margin-bottom: 5.5pt; }
+.main section + section article { padding-left: 3.5pt; }
+
+.main h3 { font-weight: 700; font-size: 12pt; line-height: 13pt; }
+.date { font-style: italic; font-size: 9pt; line-height: 11pt; padding-left: 1pt; }
+.main section:first-child .date { font-size: 10pt; line-height: 10.5pt; }
+.sub { font-style: italic; font-weight: 700; font-size: 10.2pt; line-height: 11.5pt; }
+.edu { font-size: 11pt; line-height: 13.2pt; margin-top: 2.5pt; }
+.edu b { font-weight: 400; }
+.note { font-style: italic; font-size: 9pt; line-height: 11pt; margin-top: 1pt; }
+
+.main ul { list-style: none; font-size: 10pt; line-height: 13.6pt; padding-left: 1pt; letter-spacing: 0; white-space: nowrap; }
+
+/* ---------- impressão / PDF ---------- */
+@media print {
+  html, body { background: #fff; }
+  .toolbar { display: none; }
+  .page { margin: 0; box-shadow: none; }
+}
+
+/* ---------- telas estreitas (celular) ---------- */
+@media screen and (max-width: 840px) {
+  .page { width: auto; height: auto; margin: 0 0 20px; overflow: visible; }
+  .top, .side, .main { position: static; width: auto; }
+  .top { height: auto; padding: 14px 16px; }
+  .top .first, .top .last { position: static; display: block; }
+  .top .last { padding-left: 2.2em; }
+  .side { padding: 16px; }
+  .main { padding: 16px 12px 20px; }
+  .main ul { white-space: normal; }
+  .main li { margin-bottom: 3px; }
+}
