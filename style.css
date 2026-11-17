@@ -2,10 +2,10 @@
    Medidas extraídas do PDF original (ver ../docs/04_cv_ajustes.md, §1). */
 
 :root {
-  --teal: #3f868c;      /* coluna esquerda */
+  --teal: #33747a;      /* coluna esquerda */
   --peach: #f49d6e;     /* faixa do nome */
   --dot: #f5d5b9;       /* bolinhas de idioma */
-  --side-text: #d9d9d9; /* texto e títulos da coluna esquerda */
+  --side-text: #ffffff; /* texto e títulos da coluna esquerda */
   --heading: #344c4c;   /* títulos da coluna direita */
   --name: #222222;
 }
