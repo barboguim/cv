@@ -3,151 +3,157 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Guilherme Barbosa – Projetos e contratações</title>
+<title>Guilherme Barbosa – Portfólio</title>
 <meta name="author" content="Guilherme Barbosa">
-<meta name="description" content="Projetos e contratações públicas conduzidos por Guilherme Barbosa: sistemas de gestão, prestação de contas e relatórios técnicos.">
+<meta name="description" content="Portfólio de Guilherme Barbosa: contratações públicas, prestação de contas, relatórios técnicos e sistemas desenvolvidos.">
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="fonts.css">
 <style>
-:root { --teal:#3f868c; --peach:#f49d6e; --heading:#344c4c; --soft:#eef4f4; --line:#d5e2e2; }
+:root { --teal:#3f868c; --peach:#f49d6e; --heading:#344c4c; --ink:#1f2a2a; --mute:#617272; --line:#dde7e7; --soft:#f3f7f7; }
 * { box-sizing:border-box; margin:0; padding:0; }
 html { background:#e9eded; }
-body { font-family:'Roboto',Arial,sans-serif; color:#1d2b2b; line-height:1.5; font-size:15px; }
+body { font-family:'Roboto',Arial,sans-serif; color:var(--ink); line-height:1.55; font-size:15px; }
 a { color:var(--teal); }
-.wrap { max-width:880px; margin:0 auto; padding:0 16px 40px; }
 .toolbar { text-align:center; padding:14px 0 10px; font-size:14px; }
 .toolbar a { color:var(--teal); font-weight:700; text-decoration:none; border:1.5px solid var(--teal); border-radius:4px; padding:5px 14px; margin:0 4px; }
 .toolbar a:hover { background:var(--teal); color:#fff; }
-header.hero { background:var(--teal); color:#fff; border-radius:6px 6px 0 0; padding:26px 28px 22px; position:relative; overflow:hidden; }
-header.hero::after { content:""; position:absolute; right:0; top:0; width:38%; height:100%; background:var(--peach); clip-path:polygon(18% 0,100% 0,100% 100%,0 100%); opacity:.95; }
-header.hero > * { position:relative; z-index:1; }
-header.hero h1 { font-family:'Lato',sans-serif; font-weight:900; letter-spacing:2px; font-size:28px; line-height:1.1; }
-header.hero p { margin-top:6px; max-width:62%; color:#e8f1f1; }
-main { background:#fff; border-radius:0 0 6px 6px; padding:8px 28px 28px; box-shadow:0 2px 14px rgba(0,0,0,.12); }
-h2 { font-family:'League Spartan',sans-serif; font-weight:700; color:var(--heading); font-size:19px; letter-spacing:.3px; margin:26px 0 12px; padding-bottom:4px; border-bottom:1px dotted #000; display:inline-block; }
-.card { border:1px solid var(--line); border-left:4px solid var(--teal); border-radius:4px; padding:16px 18px; margin-bottom:16px; }
-.card h3 { font-size:17px; line-height:1.3; }
-.card .meta { font-size:13px; color:#5a6b6b; font-style:italic; margin:2px 0 10px; }
-.card p { margin:6px 0; }
-.card ul { margin:6px 0 6px 18px; }
-.card li { margin:2px 0; }
-.tags { margin-top:10px; display:flex; flex-wrap:wrap; gap:6px; }
-.tags span { font-size:12px; background:var(--soft); color:var(--heading); border-radius:10px; padding:2px 9px; }
-.role { display:inline-block; font-size:12.5px; font-weight:700; color:#fff; background:var(--peach); border-radius:3px; padding:1px 8px; margin:2px 4px 2px 0; }
-.proc { font-family:Consolas,monospace; font-size:14px; background:var(--soft); padding:1px 6px; border-radius:3px; }
-.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.grid2 .card { margin:0; }
-/* diagrama de fluxo */
-.flow { display:flex; flex-wrap:wrap; align-items:stretch; gap:0; margin:12px 0 4px; }
-.flow .step { background:var(--soft); border:1px solid var(--line); border-radius:4px; padding:7px 10px; font-size:13px; line-height:1.3; flex:1 1 0; min-width:110px; text-align:center; display:flex; flex-direction:column; justify-content:center; }
-.flow .step b { display:block; color:var(--heading); font-size:13px; }
-.flow .step small { color:#5a6b6b; font-size:11.5px; }
-.flow .step.key { background:#fdeee5; border-color:#f3c7ac; }
-.flow .arr { flex:0 0 22px; display:flex; align-items:center; justify-content:center; color:var(--teal); font-weight:700; }
-.principle { border-left:3px solid var(--peach); padding:4px 12px; margin:10px 0; font-style:italic; color:var(--heading); }
-.note { font-size:13px; color:#5a6b6b; margin-top:22px; border-top:1px solid var(--line); padding-top:12px; }
-@media (max-width:700px) {
-  header.hero::after { display:none; } header.hero p { max-width:none; }
-  main { padding:4px 16px 20px; }
-  .grid2 { grid-template-columns:1fr; }
-  .flow { flex-direction:column; } .flow .arr { flex-basis:18px; transform:rotate(90deg); }
-}
-@media print { html { background:#fff; } .toolbar { display:none; } main { box-shadow:none; } .card { break-inside:avoid; } }
+.sheet { max-width:860px; margin:0 auto 40px; background:#fff; box-shadow:0 2px 14px rgba(0,0,0,.12); }
+header.top { display:flex; align-items:center; gap:18px; border-top:6px solid var(--peach); padding:24px 32px 18px; border-bottom:1px solid var(--line); }
+header.top img { width:72px; height:72px; border-radius:50%; object-fit:cover; flex:none; }
+header.top h1 { font-family:'Lato',sans-serif; font-weight:900; letter-spacing:2px; font-size:24px; line-height:1.15; }
+header.top p { color:var(--mute); font-size:14px; }
+header.top .links { margin-top:3px; font-size:14px; }
+main { padding:6px 32px 28px; }
+section { margin-top:24px; }
+h2 { font-family:'League Spartan',sans-serif; font-weight:700; color:var(--heading); font-size:17px; letter-spacing:.4px; text-transform:uppercase; padding-bottom:5px; border-bottom:2px solid var(--teal); margin-bottom:4px; }
+details { border-bottom:1px solid var(--line); }
+summary { list-style:none; cursor:pointer; padding:12px 28px 12px 0; position:relative; }
+summary::-webkit-details-marker { display:none; }
+summary::after { content:"+"; position:absolute; right:4px; top:10px; font-size:20px; color:var(--teal); font-weight:700; }
+details[open] summary::after { content:"−"; }
+summary:hover h3 { color:var(--teal); }
+summary h3 { font-size:16px; line-height:1.35; }
+summary .meta { display:block; color:var(--mute); font-size:13.5px; margin-top:1px; }
+.roles { margin-top:5px; }
+.role { display:inline-block; font-size:12px; font-weight:700; color:var(--heading); border:1px solid var(--peach); border-radius:3px; padding:0 7px; margin:2px 4px 2px 0; }
+.body { padding:0 0 16px; }
+.body p { margin:6px 0; }
+.body ul { margin:6px 0 6px 20px; }
+.body li { margin:2px 0; }
+.chain { margin:10px 0 4px; padding:8px 12px; background:var(--soft); border-radius:4px; font-size:13.5px; color:var(--heading); }
+.chain b { font-weight:700; }
+.chain .a { color:var(--peach); font-weight:700; padding:0 5px; }
+.facts { display:flex; flex-wrap:wrap; gap:8px 22px; margin:10px 0 2px; font-size:13.5px; }
+.facts b { display:block; font-size:20px; color:var(--teal); line-height:1.1; }
+.tools { font-size:13px; color:var(--mute); margin-top:8px; }
+.proc { font-family:Consolas,monospace; }
+.note { font-size:13px; color:var(--mute); margin-top:26px; }
+.ctl { text-align:right; font-size:13px; margin-top:10px; }
+.ctl button { background:none; border:0; color:var(--teal); cursor:pointer; font:inherit; text-decoration:underline; }
+@media (max-width:640px) { header.top, main { padding-left:16px; padding-right:16px; } header.top img { width:56px; height:56px; } }
+@media print { html { background:#fff; } .toolbar, .ctl { display:none; } .sheet { box-shadow:none; } details { break-inside:avoid; } }
 </style>
 </head>
 <body>
 <nav class="toolbar"><a href="index.html">← Currículo</a><a href="Guilherme_Barbosa_CV.pdf" download>Baixar CV (PDF)</a></nav>
-<div class="wrap">
-<header class="hero">
-  <h1>PROJETOS E<br>CONTRATAÇÕES</h1>
-  <p>Guilherme Barbosa · Diretor de Urbanismo, Secretaria Municipal de Urbanismo de Niterói</p>
+<div class="sheet">
+<header class="top">
+  <img src="foto.jpg" alt="Foto de Guilherme Barbosa">
+  <div>
+    <h1>GUILHERME BARBOSA · PORTFÓLIO</h1>
+    <p>Diretor de Urbanismo, Secretaria Municipal de Urbanismo de Niterói</p>
+    <p class="links"><a href="https://www.linkedin.com/in/morais-guilherme/">LinkedIn</a> · <a href="index.html">Currículo</a></p>
+  </div>
 </header>
 <main>
+<div class="ctl"><button type="button" onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">abrir tudo</button> · <button type="button" onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">fechar tudo</button></div>
 
-<h2>CONTRATAÇÕES PÚBLICAS</h2>
-<div class="grid2">
-  <div class="card">
-    <h3>AERO · Aerolevantamento</h3>
-    <p class="meta">Prefeitura de Niterói · contratação de serviços</p>
-    <p>Processo <span class="proc">9900048348/2024</span></p>
-    <p><span class="role">Fiscal do contrato</span></p>
-    <p>Acompanhamento da execução e conferência dos produtos entregues em relação ao escopo e aos prazos contratados.</p>
-  </div>
-  <div class="card">
-    <h3>LUSIA · Sistema de Licenciamento Urbanístico</h3>
-    <p class="meta">Prefeitura de Niterói · contratação de serviços</p>
-    <p>Processo <span class="proc">9900168216/2025</span></p>
-    <p><span class="role">Termo de Referência e escopo</span><span class="role">Comissão de julgamento</span><span class="role">Presidente da comissão da prova de conceito</span></p>
-    <p>Definição do escopo técnico, avaliação das propostas e condução da prova de conceito do sistema.</p>
-  </div>
-</div>
+<section>
+  <h2>Contratações públicas</h2>
+  <details>
+    <summary><h3>Contratação de serviços de Aerolevantamento</h3>
+      <span class="meta">Prefeitura de Niterói · Processo <span class="proc">9900048348/2024</span></span>
+      <div class="roles"><span class="role">Fiscal do contrato</span></div></summary>
+    <div class="body">
+      <p>Acompanhamento da execução e conferência dos produtos entregues em relação ao escopo e aos prazos contratados.</p>
+      <p><a href="https://eciga.niteroi.rj.gov.br/#/processo/5f53372e-d757-4605-97ba-b1538c2ef7a4">Consultar o processo no portal público da Prefeitura →</a></p>
+    </div>
+  </details>
+  <details>
+    <summary><h3>Contratação do Sistema de Licenciamento Urbanístico</h3>
+      <span class="meta">Prefeitura de Niterói · Processo <span class="proc">9900168216/2025</span></span>
+      <div class="roles"><span class="role">Termo de Referência e escopo</span><span class="role">Comissão de julgamento</span><span class="role">Presidente da comissão da prova de conceito</span></div></summary>
+    <div class="body">
+      <p>Definição do escopo técnico, avaliação das propostas e condução da prova de conceito do sistema.</p>
+      <p><a href="https://eciga.niteroi.rj.gov.br/#/processo/46ca8a66-65f9-4b68-9f87-b5793d051609">Consultar o processo no portal público da Prefeitura →</a></p>
+    </div>
+  </details>
+</section>
 
-<h2>PROJETOS</h2>
+<section>
+  <h2>Prestação de contas</h2>
+  <details>
+    <summary><h3>Parecer sobre a prestação de contas final do projeto ObservaCentro</h3>
+      <span class="meta">Convênio 001/2020 · Prefeitura de Niterói, UFF e Fundação Euclides da Cunha (programa PDPA)</span>
+      <div class="roles"><span class="role">Conferência da prestação de contas</span><span class="role">Redação do Parecer do Fiscal</span></div></summary>
+    <div class="body">
+      <p>O projeto <b>ObservaCentro</b> ("O Centro que queremos: proposta de implementação do Observatório do Centro de Niterói") teve como produto final o <b>Atlas do Centro de Niterói</b>. Conduzi a conferência da prestação de contas final e a redação do Parecer do Fiscal, necessário para encerrar o convênio, além do despacho de encaminhamento e dos anexos.</p>
+      <p>Para conferir o volume de PDFs (relatórios, comprovantes, extratos bancários), montei um pipeline <b>100% local</b>: nenhum documento sai da máquina, o que importa quando o acervo tem dados bancários e pessoais.</p>
+      <div class="chain"><b>PDFs originais</b><span class="a">→</span>OCR e texto<span class="a">→</span>transcrição de campos (LLM local)<span class="a">→</span><b>conferências em Python/SQL</b><span class="a">→</span>parecer e anexos, com registro de cada alteração</div>
+      <p><i>Princípio: o modelo de linguagem só transcreve. Todo cálculo e toda comparação são feitos em código, e quem decide se há irregularidade é a pessoa.</i></p>
+      <p class="tools">Python · SQLite · Excel · OCRmyPDF</p>
+    </div>
+  </details>
+</section>
 
-<div class="card">
-  <h3>Conferência de prestação de contas de convênio</h3>
-  <p class="meta">SMU Niterói · Convênio 001/2020 entre a Prefeitura de Niterói, a UFF e a Fundação Euclides da Cunha (programa PDPA)</p>
-  <p>O projeto <b>ObservaCentro</b> ("O Centro que queremos: proposta de implementação do Observatório do Centro de Niterói") teve como produto final o <b>Atlas do Centro de Niterói</b>. Conduzi a conferência da prestação de contas final e a redação do Parecer do Fiscal, necessário para encerrar o convênio.</p>
-  <p>Para conferir um volume grande de PDFs (relatórios, comprovantes, extratos), montei um pipeline <b>100% local</b>: nenhum documento sai da máquina, o que importa quando o acervo tem dados bancários e pessoais.</p>
-  <div class="flow">
-    <div class="step"><b>PDFs originais</b><small>nunca alterados</small></div><div class="arr">→</div>
-    <div class="step"><b>OCR + texto</b><small>OCRmyPDF, pdftotext</small></div><div class="arr">→</div>
-    <div class="step"><b>Transcrição</b><small>LLM local, um documento por vez</small></div><div class="arr">→</div>
-    <div class="step key"><b>Conferências</b><small>Python / SQL: somas, duplicidades, datas</small></div><div class="arr">→</div>
-    <div class="step"><b>Parecer e anexos</b><small>com registro de cada alteração</small></div>
-  </div>
-  <p class="principle">O modelo de linguagem só transcreve. Todo cálculo e toda comparação são feitos em código. Quem decide se há irregularidade é a pessoa.</p>
-  <div class="tags"><span>Prestação de contas</span><span>Python</span><span>SQLite</span><span>Excel</span><span>OCR</span><span>LLM local</span></div>
-</div>
+<section>
+  <h2>Relatórios técnicos</h2>
+  <details>
+    <summary><h3>Ação fiscal na Faixa Marginal de Proteção da Laguna de Piratininga</h3>
+      <span class="meta">SMU Niterói · resposta a requisição de órgão de controle externo (MPF) · 2026</span>
+      <div class="roles"><span class="role">Análise e redação</span><span class="role">Pipeline de dados</span></div></summary>
+    <div class="body">
+      <p>Relatório técnico que cruza os pontos de ação fiscal com os lotes vetorizados, a Faixa Marginal de Proteção, o Parque Natural Municipal (PARNIT) e os boletins de aceite de obras, para estabelecer a linha do tempo de cada ocupação em relação à proteção legal.</p>
+      <div class="facts"><div><b>206</b>ações fiscais analisadas</div><div><b>36</b>boletins de aceite conferidos</div><div><b>118</b>páginas, com mapa por registro</div></div>
+      <div class="chain"><b>Camadas do ArcGIS Portal</b><span class="a">→</span>análise espacial<span class="a">→</span>cruzamento com aceites e datas<span class="a">→</span>mapas<span class="a">→</span><b>relatório Word/PDF + planilha + anexo</b></div>
+      <p>O pipeline é reprodutível: quando os dados mudam, o mesmo script gera de novo o relatório inteiro. O documento é de uso interno e contém endereços ligados a ações fiscais, por isso não está publicado aqui.</p>
+      <p class="tools">Python · Shapely · ArcGIS REST · docx · Excel</p>
+    </div>
+  </details>
+</section>
 
-<div class="card">
-  <h3>udu.server (GeoIA): gestão da carga de processos</h3>
-  <p class="meta">SMU Niterói · sistema interno em produção, usado pela equipe de análise urbanística</p>
-  <p>Sistema que organiza o fluxo de processos do departamento:</p>
-  <ul>
-    <li>Distribuição de processos por regras e equilíbrio de carga, com prévia, aprovação, aplicação e reversão</li>
-    <li>Fila de cada servidor, registro de conclusões e histórico de decisões por processo</li>
-    <li>Painéis de carga, prazos e produtividade (medianas, percentil 90, processos parados)</li>
-    <li>Espelho pesquisável dos metadados do servidor de arquivos, com registro de acesso</li>
-  </ul>
-  <div class="flow">
-    <div class="step"><b>ArcGIS Portal</b><small>fonte dos processos</small></div><div class="arr">⇄</div>
-    <div class="step key"><b>API Python</b><small>regras de distribuição, auditoria</small></div><div class="arr">⇄</div>
-    <div class="step"><b>Interface web</b><small>equipe e gestão</small></div><div class="arr">←</div>
-    <div class="step"><b>Firestore</b><small>metadados dos arquivos</small></div>
-  </div>
-  <div class="tags"><span>Governança de processos</span><span>Painéis de BI</span><span>Python / Flask</span><span>Next.js</span><span>Firestore</span><span>ArcGIS</span></div>
-</div>
+<section>
+  <h2>Sistemas desenvolvidos</h2>
+  <details>
+    <summary><h3>udu.server: distribuição e acompanhamento de processos</h3>
+      <span class="meta">SMU Niterói · em produção, usado pela equipe de análise urbanística</span>
+      <div class="roles"><span class="role">Arquitetura e desenvolvimento, do backend à interface</span></div></summary>
+    <div class="body">
+      <p>Ao assumir a direção, os processos chegavam por canais distintos, sem triagem nem responsável. Desenvolvi o sistema que hoje organiza esse fluxo:</p>
+      <ul>
+        <li>Fluxo único de entrada: todo processo é registrado, classificado e atribuído conforme a carga de cada analista</li>
+        <li>Distribuição por regras, com prévia, aprovação, aplicação e reversão auditadas</li>
+        <li>Fila de cada servidor, registro de conclusões e histórico de decisões por processo</li>
+        <li>Painéis de carga, prazos e produtividade para a gestão (medianas, percentil 90, processos parados)</li>
+        <li>Espelho pesquisável do servidor de arquivos, com registro de acesso</li>
+      </ul>
+      <div class="chain"><b>ArcGIS Portal</b> (fonte dos processos)<span class="a">⇄</span><b>API Python</b> (regras, auditoria)<span class="a">⇄</span><b>Interface web</b> (equipe e gestão)</div>
+      <p class="tools">Python / Flask · Next.js · Firestore · ArcGIS · Vercel · Render</p>
+    </div>
+  </details>
+  <details>
+    <summary><h3>udu.coord: gestão de projetos via Telegram e Notion</h3>
+      <span class="meta">SMU Niterói · ferramenta de coordenação da equipe</span>
+      <div class="roles"><span class="role">Arquitetura e desenvolvimento</span></div></summary>
+    <div class="body">
+      <p>A equipe continua conversando no Telegram, e o sistema formaliza o que importa: cada demanda vira um item no Notion com escopo, responsável, prazo e status em kanban. Decisões, arquivos e áudios ficam registrados, com notificações automáticas, resumos noturnos por frente de projeto e acompanhamento de prazos.</p>
+      <div class="chain"><b>Telegram</b> (/task, /decision, arquivos)<span class="a">→</span>n8n<span class="a">→</span>agente que interpreta e valida<span class="a">→</span><b>Notion</b><span class="a">→</span>resumos e relatórios</div>
+      <p class="tools">Python · n8n · Notion API · Telegram API · Docker</p>
+    </div>
+  </details>
+</section>
 
-<div class="card">
-  <h3>udu.coord: coordenação de projetos via Telegram → Notion</h3>
-  <p class="meta">SMU Niterói · ferramenta de coordenação da equipe</p>
-  <p>A equipe continua conversando no Telegram, e o sistema formaliza o que importa: tarefas, decisões, arquivos e áudios viram registros estruturados no Notion. O sistema valida cada registro antes de gravar, monta resumos noturnos por frente de projeto e acompanha os prazos.</p>
-  <div class="flow">
-    <div class="step"><b>Telegram</b><small>/task · /decision · arquivos</small></div><div class="arr">→</div>
-    <div class="step"><b>n8n</b><small>orquestração</small></div><div class="arr">→</div>
-    <div class="step key"><b>Agente</b><small>interpreta e valida</small></div><div class="arr">→</div>
-    <div class="step"><b>Notion</b><small>tarefas, decisões, documentos</small></div><div class="arr">→</div>
-    <div class="step"><b>Resumos e relatórios</b></div>
-  </div>
-  <div class="tags"><span>Gestão de projetos</span><span>Notion</span><span>n8n</span><span>Python</span><span>Docker</span></div>
-</div>
-
-<div class="card">
-  <h3>Relatório técnico: ação fiscal na Faixa Marginal de Proteção da Laguna de Piratininga</h3>
-  <p class="meta">SMU Niterói · resposta a requisição de órgão de controle externo (MPF)</p>
-  <p>Relatório que cruza os pontos de ação fiscal com os lotes, com a Faixa Marginal de Proteção e com os boletins de aceite. O pipeline é reprodutível: o mesmo script gera de novo o relatório inteiro quando os dados mudam.</p>
-  <div class="flow">
-    <div class="step"><b>Camadas do Portal</b><small>ArcGIS REST</small></div><div class="arr">→</div>
-    <div class="step key"><b>Análise espacial</b><small>Python, Shapely</small></div><div class="arr">→</div>
-    <div class="step"><b>Boletins de aceite</b><small>36 documentos, datas conferidas</small></div><div class="arr">→</div>
-    <div class="step"><b>Mapas por registro</b></div><div class="arr">→</div>
-    <div class="step"><b>Relatório + planilha + anexo</b><small>Word / PDF / Excel</small></div>
-  </div>
-  <div class="tags"><span>Relatórios técnicos</span><span>Geoprocessamento</span><span>Python</span><span>Excel</span></div>
-</div>
-
-<p class="note">Os sistemas e repositórios são internos à Prefeitura de Niterói. Por isso esta página descreve o trabalho com diagramas, sem dados reais. Detalhes e demonstração podem ser apresentados na entrevista.</p>
+<p class="note">Os sistemas e repositórios são internos à Prefeitura de Niterói e não estão publicados. Detalhes e demonstração podem ser apresentados na entrevista.</p>
 </main>
 </div>
 </body>
