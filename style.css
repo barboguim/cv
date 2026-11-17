@@ -116,3 +116,18 @@ body { font-family: 'Roboto', Arial, sans-serif; color: #000; -webkit-print-colo
   .main ul { white-space: normal; }
   .main li { margin-bottom: 3px; }
 }
+
+/* ---------- link Projetos + pop-up dos processos (web) ---------- */
+.toolbar a + a { margin-left: 8px; }
+.side .plink { text-decoration: underline; text-underline-offset: 2pt; font-weight: 700; color: #fff; }
+.tip { position: relative; cursor: help; border-bottom: 1px dotted var(--teal); outline: none; }
+.tip .pop {
+  display: none; position: absolute; left: 0; top: 100%; z-index: 10; margin-top: 4pt;
+  width: 300pt; white-space: normal; font-size: 9pt; line-height: 12.5pt;
+  background: #fff; color: #1d2b2b; border: 1px solid #c9dada; border-left: 3pt solid var(--peach);
+  border-radius: 3pt; padding: 6pt 8pt; box-shadow: 0 4px 14px rgba(0,0,0,.18);
+}
+.tip .pop a { color: var(--teal); font-weight: 700; }
+.tip:hover .pop, .tip:focus .pop, .tip:focus-within .pop { display: block; }
+@media print { .tip { border-bottom: 0; } .tip .pop { display: none !important; } }
+@media screen and (max-width: 840px) { .tip .pop { width: auto; right: 0; } }
