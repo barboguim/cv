@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Guilherme Barbosa – Portfólio</title>
 <meta name="author" content="Guilherme Barbosa">
-<meta name="description" content="Portfólio de Guilherme Barbosa: contratações públicas, prestação de contas, relatórios técnicos e sistemas desenvolvidos.">
+<meta name="description" content="Portfólio de Guilherme Barbosa: contratações públicas, prestação de contas, relatórios técnicos e sistemas desenvolvidos, com a metodologia de cada projeto.">
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="fonts.css">
 <style>
@@ -61,8 +61,19 @@ h4.fig { font-family:'League Spartan',sans-serif; color:var(--heading); font-siz
 .tree .o.hot rect { fill:#fde3d3; stroke:var(--peach); stroke-width:2; }
 .tree .o.hot text { font-weight:700; }
 .tree text { fill:var(--ink); }
-.tree .ln { stroke:var(--teal); stroke-width:1.5; fill:none; marker-end:url(#ar); }
+.tree .ln { stroke:var(--teal); stroke-width:1.5; fill:none; }
+.tree .dl { stroke:#b9cccc; stroke-width:1.5; stroke-dasharray:3 3; fill:none; }
+.tree .nt { font-size:12px; fill:var(--heading); }
 .tree .lb { font-size:11.5px; fill:var(--mute); font-style:italic; }
+.dv { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:4px 0 6px; }
+.dv > div { border:1px solid var(--line); border-left:3px solid var(--peach); border-radius:6px; padding:9px 12px; font-size:14px; line-height:1.5; }
+.dv b { display:block; color:var(--heading); font-size:14px; }
+.dv p { margin:3px 0 0 !important; }
+.dv + p { margin-top:14px !important; }
+.vid { margin:12px 0 4px; }
+.vid video { display:block; width:100%; height:auto; border-radius:6px; background:#11161c; box-shadow:0 1px 6px rgba(0,0,0,.18); }
+.vid figcaption { font-size:12.5px; color:var(--mute); margin-top:5px; }
+code { font-family:Consolas,monospace; font-size:.92em; background:var(--soft); padding:0 4px; border-radius:3px; }
 .cap { font-size:12.5px; color:var(--mute); margin-top:4px !important; }
 .tools { font-size:13px; color:var(--mute); margin-top:8px; }
 .proc { font-family:Consolas,monospace; }
@@ -82,8 +93,9 @@ h4.fig { font-family:'League Spartan',sans-serif; color:var(--heading); font-siz
   .facts { gap:10px 18px; }
   .facts > div { min-width:40%; }
   .flow li { gap:9px; }
+  .dv { grid-template-columns:1fr; }
 }
-@media print { html { background:#fff; } .toolbar, .ctl { display:none; } .sheet { box-shadow:none; } details { break-inside:avoid; } }
+@media print { html { background:#fff; } .toolbar, .ctl, .vid { display:none; } .sheet { box-shadow:none; } details { break-inside:avoid; } }
 </style>
 </head>
 <body>
@@ -127,13 +139,39 @@ h4.fig { font-family:'League Spartan',sans-serif; color:var(--heading); font-siz
   <details>
     <summary><h3>Parecer sobre a prestação de contas final do projeto ObservaCentro</h3>
       <span class="meta">Convênio 001/2020 · Prefeitura de Niterói, UFF e Fundação Euclides da Cunha (programa PDPA)</span>
-      <div class="roles"><span class="role">Conferência da prestação de contas</span><span class="role">Redação do Parecer do Fiscal</span></div></summary>
+      <div class="roles"><span class="role">Conferência da prestação de contas</span><span class="role">Redação do Parecer do Fiscal</span><span class="role">Pipeline local de documentos</span></div></summary>
     <div class="body">
-      <p>O projeto <b>ObservaCentro</b> ("O Centro que queremos: proposta de implementação do Observatório do Centro de Niterói") teve como produto final o <b>Atlas do Centro de Niterói</b>. Conduzi a conferência da prestação de contas final e a redação do Parecer do Fiscal, necessário para encerrar o convênio, além do despacho de encaminhamento e dos anexos.</p>
-      <p>Para conferir o volume de PDFs (relatórios, comprovantes, extratos bancários), montei um pipeline <b>100% local</b>: nenhum documento sai da máquina, o que importa quando o acervo tem dados bancários e pessoais.</p>
-      <div class="chain"><b>PDFs originais</b><span class="a">→</span>OCR e texto<span class="a">→</span>transcrição de campos (LLM local)<span class="a">→</span><b>conferências em Python/SQL</b><span class="a">→</span>parecer e anexos, com registro de cada alteração</div>
-      <p><i>Princípio: o modelo de linguagem só transcreve. Todo cálculo e toda comparação são feitos em código, e quem decide se há irregularidade é a pessoa.</i></p>
-      <p class="tools">Python · SQLite · Excel · OCRmyPDF</p>
+      <p><b>O desafio.</b> O projeto <b>ObservaCentro</b> (“O Centro que queremos: proposta de implementação do Observatório do Centro de Niterói”, cujo produto final é o <b>Atlas do Centro de Niterói</b>) só podia ser encerrado com o Parecer do Fiscal, e o parecer exige confrontar o que foi declarado com o que está documentado. O acervo chegou espalhado: a prestação do período, as prestações anteriores e complementos enviados depois, quase sempre escaneados, além de volumes grandes que precisavam ser triados antes de qualquer conta. E a despesa não estava onde se esperava: dos 38 documentos do período, só 3 eram notas de gasto individual. O restante foi pago pela conta da fundação e aparece num razão contábil e em extratos bancários.</p>
+      <div class="facts"><div><b>93</b>PDFs recebidos</div><div><b>~800</b>páginas</div><div><b>48</b>lançamentos no razão</div><div><b>24</b>extratos bancários</div><div><b>0</b>documentos enviados à nuvem</div></div>
+
+      <h4 class="fig">Como o pipeline funciona</h4>
+      <ol class="flow">
+        <li><span class="n">1</span><div><b>Triagem</b><span class="in">prestação do período</span><span class="in">prestações anteriores</span><span class="in">complementos</span><br>
+          Originais preservados e separados por lote; 7 volumes (609 páginas) fora do objeto da prestação ficam de lado, registrados.</div></li>
+        <li><span class="n">2</span><div><b>OCR e texto</b>
+          OCRmyPDF com Tesseract em português cria a camada de texto dos escaneados. Documentos que saem quase sem texto vão para uma lista de revisão, em vez de sumirem dos totais.</div></li>
+        <li><span class="n">3</span><div><b>Transcrição, um documento por vez</b><span class="m">modelo local (Qwen 2.5 7B, Ollama)</span><br>
+          O modelo lê cada nota ou comprovante e preenche os campos (tipo, número, data, emitente, CNPJ, valor, itens) num JSON por documento. Tudo roda na máquina, porque o acervo tem dados bancários e pessoais.</div></li>
+        <li><span class="n">4</span><div><b>Tabelas lidas por parser</b><span class="m">razão: saldo conferido linha a linha</span><br>
+          O razão contábil não passa pelo modelo. Um parser lê cada lançamento e confere o saldo corrente (anterior − débito + crédito); qualquer quebra aponta a linha exata.</div></li>
+        <li><span class="n">5</span><div><b>Base e conferências</b>
+          SQLite e Excel com uma aba por verificação: duplicidades, documentos fora da vigência, cronologia, soma dos itens × total, checklist do plano de trabalho e entregáveis. A aba de pendências reúne o que precisa de olho humano.</div></li>
+        <li><span class="n">6</span><div><b>Revisão no original</b>
+          Amostra de cerca de 10% conferida contra os PDFs e 100% dos documentos de maior valor. Cada pendência leva à página do PDF onde a verificação é feita.</div></li>
+        <li><span class="n">7</span><div><b>Documentos do encerramento</b>
+          Parecer do Fiscal (versão para protocolo e versão com notas de auditoria), despacho, pronunciamento do ordenador de despesa e ofícios de encerramento, gerados por script a partir do mesmo conteúdo; extratos consolidados mês a mês; cada alteração registrada em changelog.</div></li>
+      </ol>
+
+      <h4 class="fig">O que deu errado nos testes, e o que mudou por isso</h4>
+      <div class="dv">
+        <div><b>O OCR erra dígitos em silêncio</b><p>Numa nota de teste limpa, 1.350,00 virou 1.3509,00. Daí a verificação “soma dos itens × total” e a conferência integral dos documentos de maior valor.</p></div>
+        <div><b>O modelo corrige números sem avisar</b><p>Recebendo o valor corrompido, o modelo gravou o valor certo, ajustando os itens ao total. O resultado acertou, mas a verificação que apontava o erro ficou vazia. Por isso a amostragem manual não é opcional.</p></div>
+        <div><b>Razão contábil não é texto corrido</b><p>Passado pelo modelo, o razão de 48 lançamentos virou 70 “itens” e um total seis vezes maior que o real: as linhas de saldo e de totais foram somadas como despesa. Tabela passou a ser lida por parser.</p></div>
+        <div><b>Um parser que confere a si mesmo</b><p>Uma linha com o valor quebrado em duas não foi lida. Três sinais apontaram o mesmo ponto ao mesmo tempo: linha não lida, saldo que deixa de fechar e total divergente em exatos R$ 600,00. Corrigida a leitura, tudo fechou.</p></div>
+      </div>
+
+      <p><b>Resultado.</b> A divisão de trabalho saiu desses testes: o modelo é útil para ler documentos de formato variado; somas, comparações e saldos ficam com o código, onde podem ser verificados; e o parecer se apoia nas páginas dos documentos originais, não na saída do pipeline.</p>
+      <p class="tools">Python · OCRmyPDF / Tesseract · Ollama (Qwen 2.5 7B) · SQLite · Excel · python-docx · PyMuPDF</p>
     </div>
   </details>
 </section>
@@ -172,23 +210,23 @@ h4.fig { font-family:'League Spartan',sans-serif; color:var(--heading); font-siz
         <g font-family="Roboto, Arial, sans-serif" font-size="13.5">
           <g class="q"><rect x="1" y="4" width="206" height="38" rx="6"/><text x="104" y="28" text-anchor="middle">O registro é ZEIS?</text></g>
           <g class="o"><rect x="236" y="4" width="130" height="38" rx="19"/><text x="301" y="28" text-anchor="middle">ZEIS</text></g>
-          <path class="ln" d="M207 23H232"/><text class="lb" x="220" y="17" text-anchor="middle">sim</text>
-          <path class="ln" d="M104 42V64"/><text class="lb" x="112" y="58">não</text>
+          <path class="ln" marker-end="url(#ar)" d="M207 23H232"/><text class="lb" x="220" y="17" text-anchor="middle">sim</text>
+          <path class="ln" marker-end="url(#ar)" d="M104 42V64"/><text class="lb" x="112" y="58">não</text>
           <g class="q"><rect x="1" y="68" width="206" height="38" rx="6"/><text x="104" y="92" text-anchor="middle">O lote está fora da FMP?</text></g>
           <g class="o"><rect x="236" y="68" width="130" height="38" rx="19"/><text x="301" y="92" text-anchor="middle">Fora da FMP</text></g>
-          <path class="ln" d="M207 87H232"/><text class="lb" x="220" y="81" text-anchor="middle">sim</text>
-          <path class="ln" d="M104 106V128"/><text class="lb" x="112" y="122">não</text>
+          <path class="ln" marker-end="url(#ar)" d="M207 87H232"/><text class="lb" x="220" y="81" text-anchor="middle">sim</text>
+          <path class="ln" marker-end="url(#ar)" d="M104 106V128"/><text class="lb" x="112" y="122">não</text>
           <g class="q"><rect x="1" y="132" width="206" height="38" rx="6"/><text x="104" y="156" text-anchor="middle">Sem aceite associado?</text></g>
           <g class="o"><rect x="236" y="132" width="130" height="38" rx="19"/><text x="301" y="156" text-anchor="middle">Sem aceite na FMP</text></g>
-          <path class="ln" d="M207 151H232"/><text class="lb" x="220" y="145" text-anchor="middle">sim</text>
-          <path class="ln" d="M104 170V192"/><text class="lb" x="112" y="186">não</text>
+          <path class="ln" marker-end="url(#ar)" d="M207 151H232"/><text class="lb" x="220" y="145" text-anchor="middle">sim</text>
+          <path class="ln" marker-end="url(#ar)" d="M104 170V192"/><text class="lb" x="112" y="186">não</text>
           <g class="q"><rect x="1" y="196" width="206" height="38" rx="6"/><text x="104" y="220" text-anchor="middle">Algum aceite após 16/03/2010?</text></g>
           <g class="o hot"><rect x="236" y="196" width="130" height="38" rx="19"/><text x="301" y="220" text-anchor="middle">Aceite posterior</text></g>
-          <path class="ln" d="M207 215H232"/><text class="lb" x="220" y="209" text-anchor="middle">sim</text>
-          <path class="ln" d="M104 234V256"/><text class="lb" x="112" y="250">não</text>
+          <path class="ln" marker-end="url(#ar)" d="M207 215H232"/><text class="lb" x="220" y="209" text-anchor="middle">sim</text>
+          <path class="ln" marker-end="url(#ar)" d="M104 234V256"/><text class="lb" x="112" y="250">não</text>
           <g class="q"><rect x="1" y="260" width="206" height="38" rx="6"/><text x="104" y="284" text-anchor="middle">Algum aceite com data legível?</text></g>
           <g class="o"><rect x="236" y="260" width="130" height="38" rx="19"/><text x="301" y="284" text-anchor="middle">Aceite anterior</text></g>
-          <path class="ln" d="M207 279H232"/><text class="lb" x="220" y="273" text-anchor="middle">sim</text>
+          <path class="ln" marker-end="url(#ar)" d="M207 279H232"/><text class="lb" x="220" y="273" text-anchor="middle">sim</text>
           <text class="lb" x="8" y="338">não → com aceite, data a confirmar</text>
         </g>
       </svg>
@@ -204,30 +242,100 @@ h4.fig { font-family:'League Spartan',sans-serif; color:var(--heading); font-siz
 <section>
   <h2>Sistemas desenvolvidos</h2>
   <details>
-    <summary><h3>udu.server: distribuição e acompanhamento de processos</h3>
-      <span class="meta">SMU Niterói · em produção, usado pela equipe de análise urbanística</span>
+    <summary><h3>App de distribuição e acompanhamento de processos</h3>
+      <span class="meta">SMU Niterói · geoia.udu-server · em produção, usado pela equipe de análise urbanística</span>
       <div class="roles"><span class="role">Arquitetura e desenvolvimento, do backend à interface</span></div></summary>
     <div class="body">
-      <p>Ao assumir a direção, os processos chegavam por canais distintos, sem triagem nem responsável. Desenvolvi o sistema que hoje organiza esse fluxo:</p>
-      <ul>
-        <li>Fluxo único de entrada: todo processo é registrado, classificado e atribuído conforme a carga de cada analista</li>
-        <li>Distribuição por regras, com prévia, aprovação, aplicação e reversão auditadas</li>
-        <li>Fila de cada servidor, registro de conclusões e histórico de decisões por processo</li>
-        <li>Painéis de carga, prazos e produtividade para a gestão (medianas, percentil 90, processos parados)</li>
-        <li>Espelho pesquisável do servidor de arquivos, com registro de acesso</li>
-      </ul>
-      <div class="chain"><b>ArcGIS Portal</b> (fonte dos processos)<span class="a">⇄</span><b>API Python</b> (regras, auditoria)<span class="a">⇄</span><b>Interface web</b> (equipe e gestão)</div>
-      <p class="tools">Python / Flask · Next.js · Firestore · ArcGIS · Vercel · Render</p>
+      <p><b>O problema.</b> Ao assumir a direção, os processos chegavam por canais distintos, sem triagem nem responsável definido. A distribuição era manual, ninguém via quantos estavam parados nem há quanto tempo, e o que se aprendia resolvendo um caso difícil ficava só na memória de quem o resolveu. O app organiza esse fluxo de ponta a ponta sobre a base que a equipe já usa, o Portal ArcGIS da Prefeitura.</p>
+      <figure class="vid">
+        <video controls playsinline preload="none" poster="media/app-distribuicao-poster.jpg">
+          <source src="media/app-distribuicao-demo.mp4" type="video/mp4">
+          <a href="media/app-distribuicao-demo.mp4">Assistir à demonstração (MP4)</a>
+        </video>
+        <figcaption>Demonstração de 1min42, com dados fictícios: nenhum processo, pessoa ou arquivo é real.</figcaption>
+      </figure>
+      <div class="facts"><div><b>17</b>analistas no rodízio</div><div><b>5</b>faixas de idade do processo</div><div><b>10 dias</b>limite para “parado”</div><div><b>52</b>bairros oficiais (5 regiões)</div></div>
+
+      <h4 class="fig">Como um processo percorre o sistema</h4>
+      <ol class="flow">
+        <li><span class="n">1</span><div><b>Entrada única</b><span class="in">Portal ArcGIS</span><span class="in">SEI</span><br>
+          Todo processo é registrado no Portal; os que chegam pelo SEI aparecem pré-classificados, aguardando registro.</div></li>
+        <li><span class="n">2</span><div><b>Distribuição por regras</b><span class="m">prévia → revisão → aprovação</span><br>
+          O algoritmo propõe quem recebe cada processo (regra abaixo). A coordenação revisa a prévia antes de qualquer gravação, e cada aplicação pode ser revertida.</div></li>
+        <li><span class="n">3</span><div><b>Fila de cada analista</b>
+          Processos mais antigos e urgentes primeiro. A edição usa vocabulário controlado (bairros e regiões oficiais, logradouros da base pública da Prefeitura), o que acabou com variações de grafia na base.</div></li>
+        <li><span class="n">4</span><div><b>Conclusão registrada</b>
+          Cada conclusão entra no histórico do processo, com tipo, bairro e decisão, e alimenta a produtividade da equipe e a busca por casos parecidos.</div></li>
+        <li><span class="n">5</span><div><b>Painéis de gestão</b>
+          Carga atual, envelhecimento da fila, processos parados com o mesmo analista, tempos medidos por mediana e percentil 90, para que um caso extremo não distorça o retrato; relatório gerencial pronto para PDF.</div></li>
+        <li><span class="n">6</span><div><b>Conhecimento</b><span class="in">espelho do servidor de arquivos</span><br>
+          O servidor de arquivos é espelhado como catálogo pesquisável, e cada acesso fica ligado ao processo em que foi feito: base para recomendar reorganização das pastas, sempre só como sugestão. Dúvidas e incongruências de análise viram tickets; os resolvidos viram lições que o Assistente usa para responder com casos anteriores.</div></li>
+      </ol>
+
+      <h4 class="fig">Regra de distribuição</h4>
+      <svg class="tree" viewBox="0 0 368 308" role="img" aria-label="Regra de distribuição. Fila ordenada: prazo → tipo → idade: urgentes primeiro. Quem pode receber?: especialidade, tipo e ausências do dia. Menor carga ponderada: estagiário conta em dobro. Prévia da distribuição: quem recebe cada processo, e por quê. Aprovação e aplicação: grava no Portal, auditada e reversível">
+        <defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#33747a"/></marker></defs>
+        <g font-family="Roboto, Arial, sans-serif" font-size="13.5">
+          <g class="q"><rect x="1" y="4" width="196" height="44" rx="6"/><text x="99" y="31" text-anchor="middle">Fila ordenada</text></g>
+          <g class="o"><rect x="216" y="4" width="150" height="44" rx="10"/><text class="nt" x="291" y="23" text-anchor="middle">prazo → tipo → idade:</text><text class="nt" x="291" y="39" text-anchor="middle">urgentes primeiro</text></g>
+          <path class="dl" d="M197 26H216"/>
+          <path class="ln" marker-end="url(#ar2)" d="M99 48V66"/>
+          <g class="q"><rect x="1" y="68" width="196" height="44" rx="6"/><text x="99" y="95" text-anchor="middle">Quem pode receber?</text></g>
+          <g class="o"><rect x="216" y="68" width="150" height="44" rx="10"/><text class="nt" x="291" y="87" text-anchor="middle">especialidade, tipo</text><text class="nt" x="291" y="103" text-anchor="middle">e ausências do dia</text></g>
+          <path class="dl" d="M197 90H216"/>
+          <path class="ln" marker-end="url(#ar2)" d="M99 112V130"/>
+          <g class="q"><rect x="1" y="132" width="196" height="44" rx="6"/><text x="99" y="159" text-anchor="middle">Menor carga ponderada</text></g>
+          <g class="o"><rect x="216" y="132" width="150" height="44" rx="10"/><text class="nt" x="291" y="151" text-anchor="middle">estagiário conta</text><text class="nt" x="291" y="167" text-anchor="middle">em dobro</text></g>
+          <path class="dl" d="M197 154H216"/>
+          <path class="ln" marker-end="url(#ar2)" d="M99 176V194"/>
+          <g class="q"><rect x="1" y="196" width="196" height="44" rx="6"/><text x="99" y="223" text-anchor="middle">Prévia da distribuição</text></g>
+          <g class="o"><rect x="216" y="196" width="150" height="44" rx="10"/><text class="nt" x="291" y="215" text-anchor="middle">quem recebe cada</text><text class="nt" x="291" y="231" text-anchor="middle">processo, e por quê</text></g>
+          <path class="dl" d="M197 218H216"/>
+          <path class="ln" marker-end="url(#ar2)" d="M99 240V258"/>
+          <g class="q"><rect x="1" y="260" width="196" height="44" rx="6"/><text x="99" y="287" text-anchor="middle">Aprovação e aplicação</text></g>
+          <g class="o"><rect x="216" y="260" width="150" height="44" rx="10"/><text class="nt" x="291" y="279" text-anchor="middle">grava no Portal,</text><text class="nt" x="291" y="295" text-anchor="middle">auditada e reversível</text></g>
+          <path class="dl" d="M197 282H216"/>
+        </g>
+      </svg>
+      <p class="cap">Prazo do processo, tipo (Localização, depois Logradouro, depois os demais) e idade definem a ordem. Ausentes do dia não recebem processos novos.</p>
+
+      <p class="tools">Python / Flask · Next.js · Firestore · ArcGIS Portal (API Python) · Shapely · Vercel</p>
     </div>
   </details>
   <details>
-    <summary><h3>udu.coord: gestão de projetos via Telegram e Notion</h3>
-      <span class="meta">SMU Niterói · ferramenta de coordenação da equipe</span>
+    <summary><h3>App de gestão de projetos via Telegram e Notion</h3>
+      <span class="meta">SMU Niterói · udu-coord · implantado no servidor do departamento</span>
       <div class="roles"><span class="role">Arquitetura e desenvolvimento</span></div></summary>
     <div class="body">
-      <p>A equipe continua conversando no Telegram, e o sistema formaliza o que importa: cada demanda vira um item no Notion com escopo, responsável, prazo e status em kanban. Decisões, arquivos e áudios ficam registrados, com notificações automáticas, resumos noturnos por frente de projeto e acompanhamento de prazos.</p>
-      <div class="chain"><b>Telegram</b> (/task, /decision, arquivos)<span class="a">→</span>n8n<span class="a">→</span>agente que interpreta e valida<span class="a">→</span><b>Notion</b><span class="a">→</span>resumos e relatórios</div>
-      <p class="tools">Python · n8n · Notion API · Telegram API · Docker</p>
+      <p><b>O problema.</b> A equipe decide e delega pelo Telegram, e é lá que tarefas, prazos e decisões se perdem no meio da conversa. Pedir que todos mantenham um quadro no Notion à mão não funciona. O app deixa a conversa onde está e transforma a mensagem marcada em registro estruturado: basta acrescentar <code>/notion</code> à frase.</p>
+
+      <h4 class="fig">Do chat ao quadro do projeto</h4>
+      <ol class="flow">
+        <li><span class="n">1</span><div><b>Mensagem no Telegram</b><span class="in">grupos e tópicos por projeto</span><br>
+          Tarefa, decisão ou marco, escritos como a equipe já escreve: “preparar o render da orla até sexta /notion”.</div></li>
+        <li><span class="n">2</span><div><b>Entrada segura</b>
+          Webhook por túnel Cloudflare até um servidor do departamento (Docker: n8n, serviço de agentes e túnel). O painel de administração fica atrás de autenticação.</div></li>
+        <li><span class="n">3</span><div><b>Classificação</b>
+          Um primeiro agente identifica o tipo de evento e a frente de projeto e encaminha ao agente especialista.</div></li>
+        <li><span class="n">4</span><div><b>Interpretação</b><span class="m">modelo de linguagem + parser de reserva</span><br>
+          O especialista extrai título, responsável, prazo, prioridade e projeto, em JSON validado por esquema. Se o modelo falha ou está fora do ar, parsers determinísticos assumem.</div></li>
+        <li><span class="n">5</span><div><b>Validação</b>
+          Responsável ou prazo ambíguos não viram palpite: a tarefa entra como rascunho a confirmar, e a origem do prazo fica registrada (explícito, inferido, ausente ou a confirmar).</div></li>
+        <li><span class="n">6</span><div><b>Registro no Notion</b>
+          Tarefas, decisões e marcos com link para a mensagem de origem e dependências (“bloqueado por”), que alimentam o cronograma. A confirmação volta como reação na própria mensagem.</div></li>
+        <li><span class="n">7</span><div><b>Acompanhamento</b>
+          Resumo diário às 8h no grupo geral e standup da sprint no canal do projeto, lidos direto do Notion.</div></li>
+      </ol>
+
+      <h4 class="fig">Como o prazo é interpretado</h4>
+      <div class="dv">
+        <div><b>“até 5ª feira”, “fim desta semana”</b><p>Viram data concreta, marcada como <i>prazo inferido</i>, com a frase original guardada.</p></div>
+        <div><b>“o quanto antes”</b><p>Fica sem data e pede confirmação, em vez de inventar um prazo.</p></div>
+        <div><b>“data final”, “encerra”, “em 10 dias”</b><p>Indicam um marco do projeto, não uma tarefa, e vão para a base de marcos.</p></div>
+        <div><b>Responsável ambíguo</b><p>Com dois nomes iguais na equipe, o campo fica em branco para ser completado, em vez de o app adivinhar.</p></div>
+      </div>
+
+      <p class="tools">Python · n8n · Docker · Cloudflare Tunnel · Notion API · Telegram Bot API · Gemini (com fallback determinístico)</p>
     </div>
   </details>
 </section>
