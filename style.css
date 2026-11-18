@@ -63,6 +63,9 @@ body { font-family: 'Roboto', Arial, sans-serif; color: #000; -webkit-print-colo
 }
 .list { list-style: none; font-size: 11pt; line-height: 16.5pt; letter-spacing: .6pt; }
 
+.courses li { display: flex; align-items: flex-start; letter-spacing: .25pt; }
+.courses .ic { width: 9pt; height: 9pt; flex: 0 0 9pt; margin: 3.6pt 4.5pt 0 0; color: #f49d6e; }
+
 .langs { border-collapse: collapse; font-size: 10pt; letter-spacing: .4pt; }
 .langs th { font-weight: 400; text-align: left; width: 49pt; height: 18.2pt; padding: 0; }
 .langs td { padding: 0; white-space: nowrap; }
@@ -154,6 +157,7 @@ ul.info li:first-child { font-size: 8.7pt; letter-spacing: -.05pt; }
   .perfil { font-size: 15px; line-height: 1.6; letter-spacing: 0; }
   .list { font-size: 14px; line-height: 1.55; letter-spacing: .2px; }
   .list li { margin-bottom: 3px; }
+  .courses .ic { width: 15px; height: 15px; flex-basis: 15px; margin: 4px 8px 0 0; }
   .langs { font-size: 13px; }
   .langs th { width: 62px; height: 24px; }
   .langs .scale { width: 10px; font-size: 13px; }

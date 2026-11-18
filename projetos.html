@@ -141,7 +141,7 @@ code { font-family:Consolas,monospace; font-size:.92em; background:var(--soft); 
       <span class="meta">Convênio 001/2020 · Prefeitura de Niterói, UFF e Fundação Euclides da Cunha (programa PDPA)</span>
       <div class="roles"><span class="role">Conferência da prestação de contas</span><span class="role">Redação do Parecer do Fiscal</span><span class="role">Pipeline local de documentos</span></div></summary>
     <div class="body">
-      <p><b>O desafio.</b> O encerramento do Plano de Trabalho 41 do PDPA, o <b>ObservaCentro</b> (cujo produto final é o <b>Atlas do Centro de Niterói</b>), dependia do Parecer do Fiscal, cobrado desde fevereiro de 2026. Emiti-lo exigia conferir a prestação de contas final contra os documentos, e a documentação era confusa: um acervo grande, espalhado e quase todo escaneado, com a despesa fora das notas. Dos 38 documentos do período, só 3 eram notas de gasto individual; o restante havia sido pago pela conta da fundação e estava registrado num razão contábil e em extratos bancários.</p>
+      <p><b>O desafio.</b> O encerramento do Plano de Trabalho 41 do PDPA, o <b>ObservaCentro</b> (cujo produto final é o <b>Atlas do Centro de Niterói</b>), dependia do Parecer do Fiscal. Emiti-lo exigia conferir a prestação de contas final contra os documentos, e a documentação era confusa: um acervo grande, espalhado e quase todo escaneado, com a despesa fora das notas. Dos 38 documentos do período, só 3 eram notas de gasto individual; o restante havia sido pago pela conta da fundação e estava registrado num razão contábil e em extratos bancários.</p>
       <p><b>A solução.</b> Um pipeline local que organizou o acervo, transcreveu os documentos, conferiu valores e saldos por código e reuniu numa lista só o que exigia revisão humana. O processo estava parado havia meses por causa dessa confusão documental; com o pipeline, o Parecer e os demais documentos de encerramento ficaram prontos em cinco dias.</p>
       <div class="facts"><div><b>93</b>PDFs recebidos</div><div><b>~800</b>páginas</div><div><b>48</b>lançamentos no razão</div><div><b>24</b>extratos bancários</div><div><b>0</b>documentos enviados à nuvem</div></div>
 
@@ -163,15 +163,7 @@ code { font-family:Consolas,monospace; font-size:.92em; background:var(--soft); 
           Parecer do Fiscal (versão para protocolo e versão com notas de auditoria), despacho, pronunciamento do ordenador de despesa e ofícios de encerramento, gerados por script a partir do mesmo conteúdo; extratos consolidados mês a mês; cada alteração registrada em changelog.</div></li>
       </ol>
 
-      <h4 class="fig">O que deu errado nos testes, e o que mudou por isso</h4>
-      <div class="dv">
-        <div><b>O OCR erra dígitos em silêncio</b><p>Numa nota de teste limpa, 1.350,00 virou 1.3509,00. Daí a verificação “soma dos itens × total” e a conferência integral dos documentos de maior valor.</p></div>
-        <div><b>O modelo corrige números sem avisar</b><p>Recebendo o valor corrompido, o modelo gravou o valor certo, ajustando os itens ao total. O resultado acertou, mas a verificação que apontava o erro ficou vazia. Por isso a amostragem manual não é opcional.</p></div>
-        <div><b>Razão contábil não é texto corrido</b><p>Passado pelo modelo, o razão de 48 lançamentos virou 70 “itens” e um total seis vezes maior que o real: as linhas de saldo e de totais foram somadas como despesa. Tabela passou a ser lida por parser.</p></div>
-        <div><b>Um parser que confere a si mesmo</b><p>Uma linha com o valor quebrado em duas não foi lida. Três sinais apontaram o mesmo ponto ao mesmo tempo: linha não lida, saldo que deixa de fechar e total divergente em exatos R$ 600,00. Corrigida a leitura, tudo fechou.</p></div>
-      </div>
-
-      <p><b>Resultado.</b> A divisão de trabalho saiu desses testes: o modelo é útil para ler documentos de formato variado; somas, comparações e saldos ficam com o código, onde podem ser verificados; e o parecer se apoia nas páginas dos documentos originais, não na saída do pipeline.</p>
+      <p><b>Resultado.</b> O modelo é útil para ler documentos de formato variado; somas, comparações e saldos ficam com o código, onde podem ser verificados; e o parecer se apoia nas páginas dos documentos originais, não na saída do pipeline.</p>
       <p class="tools">Python · OCRmyPDF / Tesseract · Ollama (Qwen 2.5 7B) · SQLite · Excel · python-docx · PyMuPDF</p>
     </div>
   </details>
