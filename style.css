@@ -104,18 +104,6 @@ body { font-family: 'Roboto', Arial, sans-serif; color: #000; -webkit-print-colo
   .page { margin: 0; box-shadow: none; }
 }
 
-/* ---------- telas estreitas (celular) ---------- */
-@media screen and (max-width: 840px) {
-  .page { width: auto; height: auto; margin: 0 0 20px; overflow: visible; }
-  .top, .side, .main { position: static; width: auto; }
-  .top { height: auto; padding: 14px 16px; }
-  .top .first, .top .last { position: static; display: block; }
-  .top .last { padding-left: 2.2em; }
-  .side { padding: 16px; }
-  .main { padding: 16px 12px 20px; }
-  .main ul { white-space: normal; }
-  .main li { margin-bottom: 3px; }
-}
 
 /* ---------- link Projetos + pop-up dos processos (web) ---------- */
 .toolbar a + a { margin-left: 8px; }
@@ -129,7 +117,6 @@ body { font-family: 'Roboto', Arial, sans-serif; color: #000; -webkit-print-colo
 .tip .pop a { color: var(--teal); font-weight: 700; }
 .tip:hover .pop, .tip:focus .pop, .tip:focus-within .pop { display: block; }
 @media print { .tip { border-bottom: 0; } .tip .pop { display: none !important; } }
-@media screen and (max-width: 840px) { .tip .pop { width: auto; right: 0; } }
 
 /* ---------- INFO com ícones + foto ---------- */
 ul.info { list-style: none; }
@@ -139,5 +126,62 @@ ul.info li { white-space: nowrap; display: flex; align-items: center; }
   position: absolute; right: 16pt; top: 4pt; width: 64pt; height: 64pt; border-radius: 50%;
   object-fit: cover; border: 2pt solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.2);
 }
-@media screen and (max-width: 840px) { .top { position: relative; } .top .photo { top: 50%; transform: translateY(-50%); } }
 ul.info li:first-child { font-size: 8.7pt; letter-spacing: -.05pt; }
+
+/* ---------- celular / telas estreitas ----------
+   Mesma identidade (faixa pêssego, coluna teal), em fluxo vertical:
+   cabeçalho → INFO/PERFIL → competências em 2 colunas → formação e atuação. */
+@media screen and (max-width: 840px) {
+  html { background: #fff; -webkit-text-size-adjust: 100%; }
+  .toolbar { padding: 10px 0; background: #fff; position: sticky; top: 0; z-index: 20; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+  .toolbar a { display: inline-block; padding: 7px 16px; }
+  .page { width: auto; height: auto; margin: 0; overflow: visible; box-shadow: none; }
+  .top, .side, .main { position: static; left: auto; right: auto; top: auto; width: auto; }
+
+  .top { position: relative; height: auto; min-height: 92px; padding: 16px 104px 16px 18px; }
+  .top h1 { font-size: 26px; line-height: 1.15; letter-spacing: 2px; }
+  .top .first, .top .last { position: static; display: block; }
+  .top .last { padding-left: 1.4em; }
+  .top .photo { right: 18px; top: 50%; width: 72px; height: 72px; transform: translateY(-50%); }
+
+  .side { padding: 20px 18px 6px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; }
+  .side section { margin-bottom: 20px; min-width: 0; }
+  .side section:nth-child(-n+2) { grid-column: 1 / -1; }
+  .side h2 { margin-left: 0; font-size: 18px; }
+  .info { font-size: 14px; line-height: 1.9; }
+  ul.info li, ul.info li:first-child { white-space: normal; font-size: 14px; letter-spacing: 0; overflow-wrap: anywhere; }
+  .info .ic { width: 14px; height: 14px; flex-basis: 14px; margin-right: 9px; }
+  .perfil { font-size: 15px; line-height: 1.6; letter-spacing: 0; }
+  .list { font-size: 14px; line-height: 1.55; letter-spacing: .2px; }
+  .list li { margin-bottom: 3px; }
+  .langs { font-size: 13px; }
+  .langs th { width: 62px; height: 24px; }
+  .langs .scale { width: 10px; font-size: 13px; }
+  .langs i { width: 11px; height: 11px; margin-right: 2px; }
+
+  .main { padding: 22px 18px 28px; }
+  .main h2 { font-size: 19px; min-width: 0; padding-bottom: 4px; margin-bottom: 10px; }
+  .main section + section { margin-top: 18px; }
+  .main section + section h2 { margin-left: 0; }
+  .main section + section article { padding-left: 0; }
+  .main article { margin-bottom: 18px; }
+  .main h3 { font-size: 16px; line-height: 1.35; }
+  .date, .main section:first-child .date { font-size: 13px; line-height: 1.4; margin: 2px 0 4px; padding-left: 0; color: #4a5b5b; }
+  .sub { font-size: 14px; line-height: 1.4; margin-bottom: 4px; }
+  .edu { font-size: 14.5px; line-height: 1.5; margin-top: 6px; }
+  .note { font-size: 13px; line-height: 1.45; margin-top: 6px; }
+  .main ul { white-space: normal; font-size: 14.5px; line-height: 1.5; padding-left: 0; }
+  .main li { position: relative; padding-left: 14px; margin-bottom: 6px; }
+  .main li::before { content: ""; position: absolute; left: 1px; top: .62em; width: 6px; height: 6px; border-radius: 50%; background: var(--peach); }
+
+  /* pop-up dos processos: abre com toque (foco), em largura total */
+  .tip { cursor: pointer; }
+  .tip .pop { position: static; width: auto; margin: 8px 0 2px; font-size: 13.5px; line-height: 1.55; padding: 10px 12px; }
+  .tip .pop a { overflow-wrap: anywhere; }
+}
+@media screen and (max-width: 360px) {
+  .top h1 { font-size: 22px; }
+  .top { padding-right: 92px; }
+  .top .photo { width: 62px; height: 62px; }
+  .side { grid-template-columns: 1fr; }
+}
