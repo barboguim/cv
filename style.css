@@ -56,14 +56,14 @@ body { font-family: 'Roboto', Arial, sans-serif; color: #000; -webkit-print-colo
 }
 .side section { margin-bottom: 22pt; }
 .side a { color: inherit; text-decoration: none; }
-.info { font-size: 9.4pt; line-height: 14pt; letter-spacing: 0; }
+.info { font-size: 9.4pt; line-height: 13pt; letter-spacing: 0; }
 .perfil {
   font-size: 10pt; line-height: 15.8pt; letter-spacing: .35pt;
   text-align: left; /* justificado gerava vãos largos (sem hifenização pt no Edge) */
 }
 .list { list-style: none; font-size: 11pt; line-height: 16.5pt; letter-spacing: .6pt; }
 
-.courses li { display: flex; align-items: flex-start; letter-spacing: .25pt; }
+.courses li { display: flex; align-items: flex-start; letter-spacing: .25pt; line-height: 15.4pt; }
 .courses .ic { width: 9pt; height: 9pt; flex: 0 0 9pt; margin: 3.6pt 4.5pt 0 0; color: #f49d6e; }
 
 .langs { border-collapse: collapse; font-size: 10pt; letter-spacing: .4pt; }
