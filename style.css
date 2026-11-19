@@ -118,8 +118,10 @@ body { font-family: 'Roboto', Arial, sans-serif; color: #000; -webkit-print-colo
   border-radius: 3pt; padding: 6pt 8pt; box-shadow: 0 4px 14px rgba(0,0,0,.18);
 }
 .tip .pop a { color: var(--teal); font-weight: 700; }
+a.pl { color: inherit; text-decoration: none; border-bottom: 1px dotted var(--teal); }
+a.pl:hover { color: var(--teal); }
 .tip:hover .pop, .tip:focus .pop, .tip:focus-within .pop { display: block; }
-@media print { .tip { border-bottom: 0; } .tip .pop { display: none !important; } }
+@media print { a.pl { border-bottom: 0; } .tip { border-bottom: 0; } .tip .pop { display: none !important; } }
 
 /* ---------- INFO com ícones + foto ---------- */
 ul.info { list-style: none; }
