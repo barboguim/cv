@@ -338,9 +338,27 @@ code { font-family:Consolas,monospace; font-size:.92em; background:var(--soft); 
       <p class="tools">Python · n8n · Docker · Cloudflare Tunnel · Notion API · Telegram Bot API · Gemini (com fallback determinístico)</p>
     </div>
   </details>
+  <details>
+    <summary><h3>Mapa dos locais de votação de Niterói e do acesso por ônibus</h3>
+      <span class="meta">Niterói · eleições 2024 → 2026 · <a href="https://mobi-pleito-2026.vercel.app">publicado online</a></span>
+      <div class="roles"><span class="role">Concepção, análise de dados e desenvolvimento</span></div></summary>
+    <div class="body">
+      <p><b>O problema.</b> A cada eleição o TSE reorganiza seções e locais de votação, e o eleitor só descobre onde vota (e como chega lá) na véspera. O mapa compara o cadastro oficial do TSE de 2024 e de 2026 e mostra o que mudou em cada local, com a parada de ônibus mais próxima, as linhas que a atendem e a estação Nitbike mais próxima. Uma folha em formato A0 pode ser impressa para uso em reunião.</p>
+
+      <h4 class="fig">O que o mapa responde</h4>
+      <div class="dv">
+        <div><b>O que mudou no local?</b><p>Cada local recebe uma situação: sem mudança, novas seções, novo local, sucessor de um local que desapareceu, local que absorveu seções ou local que não consta mais no cadastro 2026.</p></div>
+        <div><b>Onde vota a minha seção?</b><p>A busca aceita nome, endereço ou bairro, a zona (<code>zona 72</code>) ou zona e seção juntas (<code>72 15</code>), inclusive para seções de locais que desapareceram.</p></div>
+        <div><b>Como chego de ônibus?</b><p>Ao clicar num local, o mapa mostra só as linhas que o atendem e a parada mais próxima. As estações Nitbike aparecem com a posição informada pelo próprio Nitbike, sem bicicletas disponíveis nem vagas, que mudam o tempo todo.</p></div>
+      </div>
+
+      <p class="cap">Fontes: Cadastro de Locais de Votação do TSE (2024 e 2026); linhas e paradas do MobNit e geocodificação complementar via OpenStreetMap; base cartográfica Esri. O código é mantido em repositório privado; a versão publicada é um único arquivo estático.</p>
+      <p class="tools">Python · pandas · Leaflet · dados geoespaciais · TSE · Vercel</p>
+    </div>
+  </details>
 </section>
 
-<p class="note">Os sistemas e repositórios são internos à Prefeitura de Niterói e não estão publicados. Detalhes e demonstração podem ser apresentados na entrevista.</p>
+<p class="note">Os sistemas internos da Prefeitura de Niterói e seus repositórios não estão publicados. Detalhes e demonstração podem ser apresentados na entrevista. O mapa das eleições usa apenas dados públicos e está disponível online.</p>
 </main>
 </div>
 </body>
