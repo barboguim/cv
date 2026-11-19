@@ -75,6 +75,13 @@ h4.fig { font-family:'League Spartan',sans-serif; color:var(--heading); font-siz
 .vid figcaption { font-size:12.5px; color:var(--mute); margin-top:5px; }
 code { font-family:Consolas,monospace; font-size:.92em; background:var(--soft); padding:0 4px; border-radius:3px; }
 .cap { font-size:12.5px; color:var(--mute); margin-top:4px !important; }
+.pbi { margin:12px 0 4px; }
+.pbi .frame { position:relative; width:100%; aspect-ratio:600/373.5; background:var(--soft); border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+.pbi iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+.pbi figcaption { font-size:12.5px; color:var(--mute); margin-top:5px; }
+.sites { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 4px; }
+.sites a { display:inline-block; font-weight:700; font-size:14px; text-decoration:none; border:1.5px solid var(--teal); border-radius:4px; padding:6px 14px; }
+.sites a:hover { background:var(--teal); color:#fff; }
 .tools { font-size:13px; color:var(--mute); margin-top:8px; }
 .proc { font-family:Consolas,monospace; }
 .note { font-size:13px; color:var(--mute); margin-top:26px; }
@@ -95,7 +102,7 @@ code { font-family:Consolas,monospace; font-size:.92em; background:var(--soft); 
   .flow li { gap:9px; }
   .dv { grid-template-columns:1fr; }
 }
-@media print { html { background:#fff; } .toolbar, .ctl, .vid { display:none; } .sheet { box-shadow:none; } details { break-inside:avoid; } }
+@media print { html { background:#fff; } .toolbar, .ctl, .vid, .pbi .frame { display:none; } .sheet { box-shadow:none; } details { break-inside:avoid; } }
 </style>
 </head>
 <body>
@@ -363,6 +370,64 @@ code { font-family:Consolas,monospace; font-size:.92em; background:var(--soft); 
 
       <p class="cap">Fontes: Cadastro de Locais de Votação do TSE (2024 e 2026); linhas e paradas do MobNit e geocodificação complementar via OpenStreetMap; base cartográfica Esri. O código é mantido em repositório privado; a versão publicada é um único arquivo estático.</p>
       <p class="tools">Python · pandas · Leaflet · dados geoespaciais · TSE · Vercel</p>
+    </div>
+  </details>
+</section>
+
+<section>
+  <h2>Planos Territoriais de Requalificação Urbana</h2>
+  <details>
+    <summary><h3>Reviver Centro e Reviver Fonseca</h3>
+      <span class="meta">Secretaria Municipal de Urbanismo de Niterói · programas de requalificação do Centro e do Fonseca</span>
+      <div class="roles"><span class="role">Concepção</span><span class="role">Planejamento</span><span class="role">Pesquisa de campo</span><span class="role">Consultas públicas</span><span class="role">Desenvolvimento de páginas web</span><span class="role">Analytics e dashboards</span></div></summary>
+    <div class="body">
+      <p><b>O que são.</b> Os dois programas organizam, por território, as intervenções públicas e os instrumentos de incentivo para requalificar duas centralidades de Niterói: o <b>Centro</b> e o <b>Fonseca</b>, principal centralidade da Região Norte, estruturado pela Alameda São Boaventura. Cada um tem um portal público, que apresenta o território, o mapa das intervenções, os dados e os canais de participação.</p>
+      <p><b>Minha atuação.</b> Da concepção dos planos ao ar: planejamento, pesquisa de campo, condução das consultas públicas e desenvolvimento das páginas web, com os dados organizados em analytics e dashboards (abaixo).</p>
+      <div class="sites"><a href="https://revivercentro.niteroi.rj.gov.br">Portal do Reviver Centro →</a><a href="https://reviverfonseca.niteroi.rj.gov.br">Portal do Reviver Fonseca →</a></div>
+      <h4 class="fig">O que cada portal reúne</h4>
+      <div class="dv">
+        <div><b>Reviver Centro</b><p>Contexto e investimentos, mapa das intervenções, habitação e economia, acesso à moradia, plano de oportunidades e participação pública, com acesso aos dashboards do Gêmeo Digital.</p></div>
+        <div><b>Reviver Fonseca</b><p>Mapa do programa, obras em andamento e projetos em estudo, visão integrada do território e participação pública. Os projetos em estudo passam por consulta pública antes de virarem projeto.</p></div>
+      </div>
+      <p class="tools">Pesquisa de campo · consulta pública · desenvolvimento web · mapas · Power BI</p>
+    </div>
+  </details>
+</section>
+
+<section>
+  <h2>Business Intelligence: dashboards</h2>
+  <details>
+    <summary><h3>Painel Dinâmica Imobiliária do Centro</h3>
+      <span class="meta">Reviver Centro · ofertas de imóveis no Centro expandido (Centro, Santana, São Domingos e São Lourenço) · Power BI</span>
+      <div class="roles"><span class="role">Autoria do painel</span><span class="role">Dashboard e analytics</span><span class="role">Power BI (DAX)</span></div></summary>
+    <div class="body">
+      <p><b>A pergunta.</b> Como se move o mercado imobiliário do Centro, mês a mês? O painel mostra a quantidade de ofertas, o valor e a área médios e o preço médio do m² por tipologia, com filtros por tipo de busca, finalidade, tipologia, logradouro e mês, e a distribuição das ofertas por faixa de valor.</p>
+      <figure class="pbi">
+        <div class="frame"><iframe title="Painel Dinâmica Imobiliária do Centro (agosto)" src="https://app.powerbi.com/view?r=eyJrIjoiZWMxZmUzZDYtN2E2Yy00ZDUyLWE3M2QtMWZiNTJmNjcyMWY5IiwidCI6ImRiM2MxYzY5LWUyOGMtNDNkNy04ZTFhLTk1ODNlOWU5OGE1MSJ9" loading="lazy" allowfullscreen="true"></iframe></div>
+        <figcaption>Painel interativo (Power BI). <a href="https://app.powerbi.com/view?r=eyJrIjoiZWMxZmUzZDYtN2E2Yy00ZDUyLWE3M2QtMWZiNTJmNjcyMWY5IiwidCI6ImRiM2MxYzY5LWUyOGMtNDNkNy04ZTFhLTk1ODNlOWU5OGE1MSJ9">Abrir em tela cheia</a>, recomendado no celular.</figcaption>
+      </figure>
+      <h4 class="fig">Como os números são feitos</h4>
+      <div class="dv">
+        <div><b>Estoque, não lançamentos</b><p>Cada base mensal é uma foto dos anúncios ativos no mês. Um imóvel continua contado enquanto estiver anunciado.</p></div>
+        <div><b>Anúncios duplicados</b><p>O mesmo imóvel em mais de um portal vira uma só oferta, quando bairro, logradouro, tipologia, quartos, vagas e área (±5%) coincidem.</p></div>
+        <div><b>Anúncios descartados</b><p>Área privativa abaixo de 12 m² (exceto garagem) e preços por m² fora de mediana ± 3 desvios-padrão do segmento.</p></div>
+        <div><b>Preço do m²</b><p>Média simples do preço por m² dos anúncios que sobram, não a razão entre a soma dos valores e a das áreas.</p></div>
+      </div>
+      <p class="cap">Série mensal de janeiro de 2025 a agosto de 2026. Fonte dos dados brutos: bases mensais de ofertas obtidas via SECOVI.</p>
+      <p class="tools">Power BI · DAX · Power Query · Python · Excel</p>
+    </div>
+  </details>
+  <details>
+    <summary><h3>Painel da consulta pública do Reviver Fonseca</h3>
+      <span class="meta">Programa Reviver Fonseca · pesquisa pública que subsidiou o plano de requalificação do bairro · Power BI</span>
+      <div class="roles"><span class="role">Concepção do questionário</span><span class="role">Dashboard e analytics</span></div></summary>
+    <div class="body">
+      <p>Dados da pesquisa pública que subsidiou o plano de requalificação do bairro do Fonseca (Programa Reviver Fonseca). Concebi o questionário aplicado à população e organizei as respostas neste painel interativo, que qualquer pessoa pode explorar.</p>
+      <figure class="pbi">
+        <div class="frame"><iframe title="Painel da consulta pública do Reviver Fonseca" src="https://app.powerbi.com/view?r=eyJrIjoiYjQzOWMyOGMtZmE1MC00MGFkLWFmNTYtODNiZjFmMThhMzFjIiwidCI6ImRiM2MxYzY5LWUyOGMtNDNkNy04ZTFhLTk1ODNlOWU5OGE1MSJ9" loading="lazy" allowfullscreen="true"></iframe></div>
+        <figcaption>Painel interativo (Power BI). <a href="https://app.powerbi.com/view?r=eyJrIjoiYjQzOWMyOGMtZmE1MC00MGFkLWFmNTYtODNiZjFmMThhMzFjIiwidCI6ImRiM2MxYzY5LWUyOGMtNDNkNy04ZTFhLTk1ODNlOWU5OGE1MSJ9">Abrir em tela cheia</a>, recomendado no celular.</figcaption>
+      </figure>
+      <p class="tools">Power BI · questionário · consulta pública · analytics</p>
     </div>
   </details>
 </section>
