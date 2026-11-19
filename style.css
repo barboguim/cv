@@ -59,7 +59,7 @@ body { font-family: 'Roboto', Arial, sans-serif; color: #000; -webkit-print-colo
 .info { font-size: 9.4pt; line-height: 14pt; letter-spacing: 0; }
 .perfil {
   font-size: 10pt; line-height: 14.6pt; letter-spacing: .35pt;
-  text-align: left; /* justificado gerava vãos largos (sem hifenização pt no Edge) */
+  text-align: justify; text-justify: inter-word; hyphens: auto; -webkit-hyphens: auto;
 }
 .list { list-style: none; font-size: 11pt; line-height: 16.5pt; letter-spacing: .6pt; }
 
