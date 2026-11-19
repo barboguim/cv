@@ -181,69 +181,6 @@ code { font-family:Consolas,monospace; font-size:.92em; background:var(--soft); 
 </section>
 
 <section>
-  <h2>Relatórios técnicos</h2>
-  <details>
-    <summary><h3>Ação fiscal na Faixa Marginal de Proteção da Laguna de Piratininga</h3>
-      <span class="meta">SMU Niterói · resposta a requisição de órgão de controle externo (MPF) · 2026</span>
-      <div class="roles"><span class="role">Método e análise</span><span class="role">Pipeline geoespacial (13 scripts)</span><span class="role">Redação do relatório</span></div></summary>
-    <div class="body">
-      <p><b>A pergunta.</b> Para cada uma das 206 ações fiscais na Faixa Marginal de Proteção (FMP) da laguna: a ocupação está mesmo dentro da faixa? Tem boletim de aceite de obra? E esse aceite é <i>anterior</i> ou <i>posterior</i> ao decreto que criou a proteção? Responder caso a caso, à mão, exigiria cruzar pontos de GPS, 20 camadas de loteamentos digitalizados, dois limites legais e 36 boletins escaneados.</p>
-      <div class="facts"><div><b>206</b>ações fiscais</div><div><b>20</b>camadas de lotes</div><div><b>36</b>boletins de aceite</div><div><b>195</b>mapas de detalhe</div><div><b>118</b>páginas de relatório</div></div>
-
-      <h4 class="fig">Como o pipeline funciona</h4>
-      <ol class="flow">
-        <li><span class="n">1</span><div><b>Coleta</b><span class="in">Portal ArcGIS da Prefeitura · camadas privadas, via token</span><br>
-          Leitura do mapa web e download paginado (REST) das 206 ações fiscais, das 20 camadas de lotes vetorizados e da FMP. O limite do Parque Natural Municipal (PARNIT) vem de um serviço público da Esri. Tudo no mesmo sistema de coordenadas.</div></li>
-        <li><span class="n">2</span><div><b>Geometria</b>
-          Conversão dos anéis do formato Esri para polígonos Shapely, com tratamento de furos e multipolígonos, e índice espacial (STRtree) para as buscas.</div></li>
-        <li><span class="n">3</span><div><b>Ponto → lote</b><span class="m">192 por contenção</span><span class="m">14 por aproximação ≤ 12 m</span><br>
-          Cada ponto é ligado ao lote que o contém; se o GPS caiu na rua, ao lote mais próximo dentro de 12 m. Lotes repetidos entre camadas são deduplicados, e lote e quadra são conferidos contra o endereço informado pelo fiscal.</div></li>
-        <li><span class="n">4</span><div><b>Lote × limites legais</b><span class="in">FMP · Decreto 42.354/2010</span><span class="in">PARNIT · Decreto 11.744/2014</span><br>
-          Interseção de cada lote com a FMP, com o percentual da área do lote dentro da faixa, e com o parque de proteção integral.</div></li>
-        <li><span class="n">5</span><div><b>Boletins de aceite</b><span class="in">36 PDFs escaneados</span><span class="m">33 de 36 associados</span><br>
-          Associação em três camadas: código do boletim registrado na ação fiscal (10), lote e quadra lidos do nome do arquivo (21), quadra e número (2). As datas são manuscritas e o OCR não é confiável: foram lidas por uma pessoa numa planilha gerada pelo próprio pipeline, que volta como entrada e recalcula tudo.</div></li>
-        <li><span class="n">6</span><div><b>Classificação</b>
-          Cada registro recebe uma situação legal pela regra abaixo, que compara a data do aceite com a data do decreto da FMP.</div></li>
-        <li><span class="n">7</span><div><b>Produtos</b>
-          Mapas de satélite por registro e de visão geral; relatório Word/PDF com ficha e mapa de cada ação fiscal; planilha de dados (registros, aceites, resumo); anexo com os 36 boletins num PDF com marcadores, referenciados no texto.</div></li>
-      </ol>
-
-      <h4 class="fig">Regra de classificação de cada registro</h4>
-      <svg class="tree" viewBox="0 0 368 344" role="img" aria-label="Árvore de decisão. O registro é ZEIS? sim: ZEIS. O lote está fora da FMP? sim: Fora da FMP. Sem aceite associado? sim: Sem aceite na FMP. Algum aceite após 16/03/2010? sim: Aceite posterior à FMP. Algum aceite com data legível? sim: Aceite anterior à FMP; não: com aceite, data a confirmar.">
-        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#33747a"/></marker></defs>
-        <g font-family="Roboto, Arial, sans-serif" font-size="13.5">
-          <g class="q"><rect x="1" y="4" width="206" height="38" rx="6"/><text x="104" y="28" text-anchor="middle">O registro é ZEIS?</text></g>
-          <g class="o"><rect x="236" y="4" width="130" height="38" rx="19"/><text x="301" y="28" text-anchor="middle">ZEIS</text></g>
-          <path class="ln" marker-end="url(#ar)" d="M207 23H232"/><text class="lb" x="220" y="17" text-anchor="middle">sim</text>
-          <path class="ln" marker-end="url(#ar)" d="M104 42V64"/><text class="lb" x="112" y="58">não</text>
-          <g class="q"><rect x="1" y="68" width="206" height="38" rx="6"/><text x="104" y="92" text-anchor="middle">O lote está fora da FMP?</text></g>
-          <g class="o"><rect x="236" y="68" width="130" height="38" rx="19"/><text x="301" y="92" text-anchor="middle">Fora da FMP</text></g>
-          <path class="ln" marker-end="url(#ar)" d="M207 87H232"/><text class="lb" x="220" y="81" text-anchor="middle">sim</text>
-          <path class="ln" marker-end="url(#ar)" d="M104 106V128"/><text class="lb" x="112" y="122">não</text>
-          <g class="q"><rect x="1" y="132" width="206" height="38" rx="6"/><text x="104" y="156" text-anchor="middle">Sem aceite associado?</text></g>
-          <g class="o"><rect x="236" y="132" width="130" height="38" rx="19"/><text x="301" y="156" text-anchor="middle">Sem aceite na FMP</text></g>
-          <path class="ln" marker-end="url(#ar)" d="M207 151H232"/><text class="lb" x="220" y="145" text-anchor="middle">sim</text>
-          <path class="ln" marker-end="url(#ar)" d="M104 170V192"/><text class="lb" x="112" y="186">não</text>
-          <g class="q"><rect x="1" y="196" width="206" height="38" rx="6"/><text x="104" y="220" text-anchor="middle">Algum aceite após 16/03/2010?</text></g>
-          <g class="o hot"><rect x="236" y="196" width="130" height="38" rx="19"/><text x="301" y="220" text-anchor="middle">Aceite posterior</text></g>
-          <path class="ln" marker-end="url(#ar)" d="M207 215H232"/><text class="lb" x="220" y="209" text-anchor="middle">sim</text>
-          <path class="ln" marker-end="url(#ar)" d="M104 234V256"/><text class="lb" x="112" y="250">não</text>
-          <g class="q"><rect x="1" y="260" width="206" height="38" rx="6"/><text x="104" y="284" text-anchor="middle">Algum aceite com data legível?</text></g>
-          <g class="o"><rect x="236" y="260" width="130" height="38" rx="19"/><text x="301" y="284" text-anchor="middle">Aceite anterior</text></g>
-          <path class="ln" marker-end="url(#ar)" d="M207 279H232"/><text class="lb" x="220" y="273" text-anchor="middle">sim</text>
-          <text class="lb" x="8" y="338">não → com aceite, data a confirmar</text>
-        </g>
-      </svg>
-      <p class="cap">16/03/2010 é a data do Decreto 42.354/2010, que instituiu a FMP. “Aceite posterior” = aceite emitido depois da criação da FMP. Registros ZEIS ficam fora da fiscalização e não recebem mapa de detalhe.</p>
-
-      <p><b>Por que importa.</b> A resposta ao MPF fica auditável: cada conclusão remete a uma regra explícita e a um documento anexado. E o pipeline é reprodutível de ponta a ponta: quando chega um dado novo (uma data de aceite lida na planilha, por exemplo), o mesmo encadeamento gera de novo o relatório, a planilha e o anexo.</p>
-      <p class="tools">Python · Shapely (STRtree) · ArcGIS REST · PyMuPDF · Pillow · openpyxl · Node.js (docx)</p>
-      <p class="cap">O relatório é de uso interno e contém endereços ligados a ações fiscais, por isso não está publicado aqui. Os números acima são agregados.</p>
-    </div>
-  </details>
-</section>
-
-<section>
   <h2>Sistemas desenvolvidos</h2>
   <details>
     <summary><h3>App de distribuição e acompanhamento de processos</h3>
@@ -436,6 +373,69 @@ code { font-family:Consolas,monospace; font-size:.92em; background:var(--soft); 
         <figcaption>Painel interativo (Power BI). <a href="https://app.powerbi.com/view?r=eyJrIjoiYjQzOWMyOGMtZmE1MC00MGFkLWFmNTYtODNiZjFmMThhMzFjIiwidCI6ImRiM2MxYzY5LWUyOGMtNDNkNy04ZTFhLTk1ODNlOWU5OGE1MSJ9">Abrir em tela cheia</a>, recomendado no celular.</figcaption>
       </figure>
       <p class="tools">Power BI · questionário · consulta pública · analytics</p>
+    </div>
+  </details>
+</section>
+
+<section>
+  <h2>Relatórios técnicos</h2>
+  <details>
+    <summary><h3>Ação fiscal na Faixa Marginal de Proteção da Laguna de Piratininga</h3>
+      <span class="meta">SMU Niterói · resposta a requisição de órgão de controle externo (MPF) · 2026</span>
+      <div class="roles"><span class="role">Método e análise</span><span class="role">Pipeline geoespacial (13 scripts)</span><span class="role">Redação do relatório</span></div></summary>
+    <div class="body">
+      <p><b>A pergunta.</b> Para cada uma das 206 ações fiscais na Faixa Marginal de Proteção (FMP) da laguna: a ocupação está mesmo dentro da faixa? Tem boletim de aceite de obra? E esse aceite é <i>anterior</i> ou <i>posterior</i> ao decreto que criou a proteção? Responder caso a caso, à mão, exigiria cruzar pontos de GPS, 20 camadas de loteamentos digitalizados, dois limites legais e 36 boletins escaneados.</p>
+      <div class="facts"><div><b>206</b>ações fiscais</div><div><b>20</b>camadas de lotes</div><div><b>36</b>boletins de aceite</div><div><b>195</b>mapas de detalhe</div><div><b>118</b>páginas de relatório</div></div>
+
+      <h4 class="fig">Como o pipeline funciona</h4>
+      <ol class="flow">
+        <li><span class="n">1</span><div><b>Coleta</b><span class="in">Portal ArcGIS da Prefeitura · camadas privadas, via token</span><br>
+          Leitura do mapa web e download paginado (REST) das 206 ações fiscais, das 20 camadas de lotes vetorizados e da FMP. O limite do Parque Natural Municipal (PARNIT) vem de um serviço público da Esri. Tudo no mesmo sistema de coordenadas.</div></li>
+        <li><span class="n">2</span><div><b>Geometria</b>
+          Conversão dos anéis do formato Esri para polígonos Shapely, com tratamento de furos e multipolígonos, e índice espacial (STRtree) para as buscas.</div></li>
+        <li><span class="n">3</span><div><b>Ponto → lote</b><span class="m">192 por contenção</span><span class="m">14 por aproximação ≤ 12 m</span><br>
+          Cada ponto é ligado ao lote que o contém; se o GPS caiu na rua, ao lote mais próximo dentro de 12 m. Lotes repetidos entre camadas são deduplicados, e lote e quadra são conferidos contra o endereço informado pelo fiscal.</div></li>
+        <li><span class="n">4</span><div><b>Lote × limites legais</b><span class="in">FMP · Decreto 42.354/2010</span><span class="in">PARNIT · Decreto 11.744/2014</span><br>
+          Interseção de cada lote com a FMP, com o percentual da área do lote dentro da faixa, e com o parque de proteção integral.</div></li>
+        <li><span class="n">5</span><div><b>Boletins de aceite</b><span class="in">36 PDFs escaneados</span><span class="m">33 de 36 associados</span><br>
+          Associação em três camadas: código do boletim registrado na ação fiscal (10), lote e quadra lidos do nome do arquivo (21), quadra e número (2). As datas são manuscritas e o OCR não é confiável: foram lidas por uma pessoa numa planilha gerada pelo próprio pipeline, que volta como entrada e recalcula tudo.</div></li>
+        <li><span class="n">6</span><div><b>Classificação</b>
+          Cada registro recebe uma situação legal pela regra abaixo, que compara a data do aceite com a data do decreto da FMP.</div></li>
+        <li><span class="n">7</span><div><b>Produtos</b>
+          Mapas de satélite por registro e de visão geral; relatório Word/PDF com ficha e mapa de cada ação fiscal; planilha de dados (registros, aceites, resumo); anexo com os 36 boletins num PDF com marcadores, referenciados no texto.</div></li>
+      </ol>
+
+      <h4 class="fig">Regra de classificação de cada registro</h4>
+      <svg class="tree" viewBox="0 0 368 344" role="img" aria-label="Árvore de decisão. O registro é ZEIS? sim: ZEIS. O lote está fora da FMP? sim: Fora da FMP. Sem aceite associado? sim: Sem aceite na FMP. Algum aceite após 16/03/2010? sim: Aceite posterior à FMP. Algum aceite com data legível? sim: Aceite anterior à FMP; não: com aceite, data a confirmar.">
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#33747a"/></marker></defs>
+        <g font-family="Roboto, Arial, sans-serif" font-size="13.5">
+          <g class="q"><rect x="1" y="4" width="206" height="38" rx="6"/><text x="104" y="28" text-anchor="middle">O registro é ZEIS?</text></g>
+          <g class="o"><rect x="236" y="4" width="130" height="38" rx="19"/><text x="301" y="28" text-anchor="middle">ZEIS</text></g>
+          <path class="ln" marker-end="url(#ar)" d="M207 23H232"/><text class="lb" x="220" y="17" text-anchor="middle">sim</text>
+          <path class="ln" marker-end="url(#ar)" d="M104 42V64"/><text class="lb" x="112" y="58">não</text>
+          <g class="q"><rect x="1" y="68" width="206" height="38" rx="6"/><text x="104" y="92" text-anchor="middle">O lote está fora da FMP?</text></g>
+          <g class="o"><rect x="236" y="68" width="130" height="38" rx="19"/><text x="301" y="92" text-anchor="middle">Fora da FMP</text></g>
+          <path class="ln" marker-end="url(#ar)" d="M207 87H232"/><text class="lb" x="220" y="81" text-anchor="middle">sim</text>
+          <path class="ln" marker-end="url(#ar)" d="M104 106V128"/><text class="lb" x="112" y="122">não</text>
+          <g class="q"><rect x="1" y="132" width="206" height="38" rx="6"/><text x="104" y="156" text-anchor="middle">Sem aceite associado?</text></g>
+          <g class="o"><rect x="236" y="132" width="130" height="38" rx="19"/><text x="301" y="156" text-anchor="middle">Sem aceite na FMP</text></g>
+          <path class="ln" marker-end="url(#ar)" d="M207 151H232"/><text class="lb" x="220" y="145" text-anchor="middle">sim</text>
+          <path class="ln" marker-end="url(#ar)" d="M104 170V192"/><text class="lb" x="112" y="186">não</text>
+          <g class="q"><rect x="1" y="196" width="206" height="38" rx="6"/><text x="104" y="220" text-anchor="middle">Algum aceite após 16/03/2010?</text></g>
+          <g class="o hot"><rect x="236" y="196" width="130" height="38" rx="19"/><text x="301" y="220" text-anchor="middle">Aceite posterior</text></g>
+          <path class="ln" marker-end="url(#ar)" d="M207 215H232"/><text class="lb" x="220" y="209" text-anchor="middle">sim</text>
+          <path class="ln" marker-end="url(#ar)" d="M104 234V256"/><text class="lb" x="112" y="250">não</text>
+          <g class="q"><rect x="1" y="260" width="206" height="38" rx="6"/><text x="104" y="284" text-anchor="middle">Algum aceite com data legível?</text></g>
+          <g class="o"><rect x="236" y="260" width="130" height="38" rx="19"/><text x="301" y="284" text-anchor="middle">Aceite anterior</text></g>
+          <path class="ln" marker-end="url(#ar)" d="M207 279H232"/><text class="lb" x="220" y="273" text-anchor="middle">sim</text>
+          <text class="lb" x="8" y="338">não → com aceite, data a confirmar</text>
+        </g>
+      </svg>
+      <p class="cap">16/03/2010 é a data do Decreto 42.354/2010, que instituiu a FMP. “Aceite posterior” = aceite emitido depois da criação da FMP. Registros ZEIS ficam fora da fiscalização e não recebem mapa de detalhe.</p>
+
+      <p><b>Por que importa.</b> A resposta ao MPF fica auditável: cada conclusão remete a uma regra explícita e a um documento anexado. E o pipeline é reprodutível de ponta a ponta: quando chega um dado novo (uma data de aceite lida na planilha, por exemplo), o mesmo encadeamento gera de novo o relatório, a planilha e o anexo.</p>
+      <p class="tools">Python · Shapely (STRtree) · ArcGIS REST · PyMuPDF · Pillow · openpyxl · Node.js (docx)</p>
+      <p class="cap">O relatório é de uso interno e contém endereços ligados a ações fiscais, por isso não está publicado aqui. Os números acima são agregados.</p>
     </div>
   </details>
 </section>
